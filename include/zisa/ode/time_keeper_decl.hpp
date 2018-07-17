@@ -16,7 +16,7 @@ namespace zisa {
 struct SimulationClockData {
   double t;
   double dt;
-  int k;
+  int_t k;
 
   bool is_finished;
   bool is_interrupted;
@@ -102,7 +102,7 @@ private:
 
 public:
   /// Construct time-keeper that ends the simulation after `n_steps` steps.
-  FixedTimeSteps(int n_steps);
+  FixedTimeSteps(int_t n_steps);
   virtual ~FixedTimeSteps() = default;
 
   virtual bool
@@ -112,10 +112,10 @@ public:
   compact_progress_string(const SimulationClockData &clock_data) const override;
 
 protected:
-  int final_step(void) const;
+  int_t final_step(void) const;
 
 private:
-  int n_steps;
+  int_t n_steps;
   std::string progress_format;
 };
 

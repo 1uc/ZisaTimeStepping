@@ -35,8 +35,8 @@ void TimeKeeper::activate_small_steps() { needs_small_steps = true; }
 double TimeKeeper::enforce_initially_small_time_steps(
     const SimulationClockData &clock_data, double dt) const {
 
-  int k = clock_data.k;
-  double alpha = (k < 100 ? (k + 1) * 0.01 : 1.0);
+  int_t k = clock_data.k;
+  double alpha = (k < 100 ? (double(k) + 1) * 0.01 : 1.0);
   return alpha * dt;
 }
 
@@ -69,8 +69,8 @@ double FixedDuration::final_time(void) const { return t_end; }
 // ------------------------------------------------------------
 // FixedTimeSteps
 
-FixedTimeSteps::FixedTimeSteps(int n_steps) : n_steps(n_steps) {
-  int n_digits = int(zisa::ceil(zisa::log10(zisa::max(n_steps, 10))));
+FixedTimeSteps::FixedTimeSteps(int_t n_steps) : n_steps(n_steps) {
+  auto n_digits = int_t(zisa::ceil(zisa::log10(double(zisa::max(n_steps, int_t(10))))));
   progress_format = string_format("%% %dd/%% %dd", n_digits, n_digits);
 }
 
@@ -83,6 +83,6 @@ std::string FixedTimeSteps::compact_progress_string(
   return string_format(progress_format.c_str(), clock_data.k, final_step());
 }
 
-int FixedTimeSteps::final_step(void) const { return n_steps; }
+int_t FixedTimeSteps::final_step(void) const { return n_steps; }
 
 } // namespace zisa

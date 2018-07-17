@@ -28,7 +28,7 @@ bool SimulationClock::is_plotting_step(void) const {
   return clock_data.is_plotting_step;
 }
 
-void SimulationClock::advance_to(double t, int k) {
+void SimulationClock::advance_to(double t, int_t k) {
   clock_data.t = t;
   clock_data.k = k;
 }
@@ -57,7 +57,7 @@ std::string SimulationClock::compact_progess_string(void) const {
   return time_keeper->compact_progress_string(clock_data);
 }
 
-int SimulationClock::current_step(void) const { return clock_data.k; }
+int_t SimulationClock::current_step(void) const { return clock_data.k; }
 
 double SimulationClock::current_time(void) const { return clock_data.t; }
 
@@ -87,7 +87,7 @@ double MPISimulationClock::reduce(double dt_local) const {
 }
 void MPISimulationClock::broadcast() {
   void *address = (void *)(&clock_data);
-  int n_bytes = sizeof(clock_data);
+  auto n_bytes = sizeof(clock_data);
   MPI_Bcast(address, n_bytes, MPI_BYTE, 0, mpi_comm);
 }
 #endif

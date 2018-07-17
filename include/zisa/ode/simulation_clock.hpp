@@ -19,7 +19,7 @@ public:
                   const std::shared_ptr<PlottingSteps> &plotting_steps);
 
   /// Advance to time `t` and time-step `k`.
-  void advance_to(double t, int k);
+  void advance_to(double t, int_t k);
 
   /// Advance the clock by one step.
   void advance();
@@ -48,7 +48,7 @@ public:
   std::string compact_progess_string(void) const;
 
   /// Return the number of time steps performed.
-  int current_step(void) const;
+  int_t current_step(void) const;
 
   /// Return the current simulation time.
   double current_time(void) const;

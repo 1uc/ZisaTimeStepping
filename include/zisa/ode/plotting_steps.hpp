@@ -62,7 +62,7 @@ protected:
   is_plotting_step_impl(const SimulationClockData &clock_data) override;
 
 private:
-  int steps_per_frame;
+  int_t steps_per_frame;
 };
 
 /// Plot at a fixed time-interval
