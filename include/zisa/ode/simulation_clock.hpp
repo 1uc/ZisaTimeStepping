@@ -18,6 +18,8 @@ public:
   SimulationClock(const std::shared_ptr<TimeKeeper> &time_keeper,
                   const std::shared_ptr<PlottingSteps> &plotting_steps);
 
+  virtual ~SimulationClock() = default;
+
   /// Advance to time `t` and time-step `k`.
   void advance_to(double t, int_t k);
 
