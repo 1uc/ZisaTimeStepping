@@ -3,9 +3,9 @@
  * Authors: Luc Grosheintz <forbugrep@zoho.com>
  *    Date: 2016-03-08
  */
-#include <zisa/ode/time_keeper.hpp>
 #include <zisa/math/basic_functions.hpp>
 #include <zisa/math/comparison.hpp>
+#include <zisa/ode/time_keeper.hpp>
 
 namespace zisa {
 

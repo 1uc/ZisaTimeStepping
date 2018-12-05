@@ -145,5 +145,5 @@ private:
   zisa::time_stamp_t simulation_start;
 };
 
-} // namespace tyr
+} // namespace zisa
 #endif /* end of include guard: TIME_KEEPER_H_DY6TALRI */
