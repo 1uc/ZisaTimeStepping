@@ -69,15 +69,15 @@ private:
   bool needs_small_steps;
 };
 
-/// Simulation ends after a fixed amount of time.
-class FixedDuration : public TimeKeeper {
+/// Simulation ends when it reaches a certain time or number of time steps.
+class FixedDurationAndTimeSteps : public TimeKeeper {
 private:
   using super = TimeKeeper;
 
 public:
-  /// Construct a time-keeper that ends the simulation at `t == t_end`.
-  FixedDuration(double t_end);
-  virtual ~FixedDuration() = default;
+  /// Construct time-keeper that ends the simulation after `n_steps` steps.
+  FixedDurationAndTimeSteps(double final_time, int_t n_steps);
+  virtual ~FixedDurationAndTimeSteps() = default;
 
   virtual bool
   is_finished(const SimulationClockData &clock_data) const override;
@@ -88,33 +88,8 @@ public:
   virtual std::string
   compact_progress_string(const SimulationClockData &clock_data) const override;
 
-protected:
-  double final_time(void) const;
-
 private:
   double t_end;
-};
-
-/// Simulation ends after a fixed number of steps.
-class FixedTimeSteps : public TimeKeeper {
-private:
-  using super = TimeKeeper;
-
-public:
-  /// Construct time-keeper that ends the simulation after `n_steps` steps.
-  FixedTimeSteps(int_t n_steps);
-  virtual ~FixedTimeSteps() = default;
-
-  virtual bool
-  is_finished(const SimulationClockData &clock_data) const override;
-
-  virtual std::string
-  compact_progress_string(const SimulationClockData &clock_data) const override;
-
-protected:
-  int_t final_step(void) const;
-
-private:
   int_t n_steps;
   std::string progress_format;
 };

@@ -7,12 +7,6 @@
 #include <zisa/ode/time_keeper.hpp>
 
 namespace zisa {
-enum class PlottingMode {
-  every_nth_step,  ///< plot every fixed number of time-steps.
-  fixed_interval,  ///< plot at a fixed time intervals
-  fixed_time_steps ///< plot at predefined time steps.
-};
-
 /// Abstract interface for deciding if a 'plotting' is required.
 /** The term plotting is used very liberally to mean, store a
  *  snapshot to disk.
