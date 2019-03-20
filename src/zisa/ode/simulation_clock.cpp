@@ -18,13 +18,13 @@ SimulationClock::SimulationClock(
   clock_data.is_plotting_step = true;
 }
 
-bool SimulationClock::is_finished(void) const { return clock_data.is_finished; }
+bool SimulationClock::is_finished() const { return clock_data.is_finished; }
 
-bool SimulationClock::is_interrupted(void) const {
+bool SimulationClock::is_interrupted() const {
   return clock_data.is_interrupted;
 }
 
-bool SimulationClock::is_plotting_step(void) const {
+bool SimulationClock::is_plotting_step() const {
   return clock_data.is_plotting_step;
 }
 
@@ -53,15 +53,15 @@ void SimulationClock::set_time_step(double dt_cfl) {
   broadcast();
 }
 
-std::string SimulationClock::compact_progess_string(void) const {
+std::string SimulationClock::compact_progess_string() const {
   return time_keeper->compact_progress_string(clock_data);
 }
 
-int_t SimulationClock::current_step(void) const { return clock_data.k; }
+int_t SimulationClock::current_step() const { return clock_data.k; }
 
-double SimulationClock::current_time(void) const { return clock_data.t; }
+double SimulationClock::current_time() const { return clock_data.t; }
 
-double SimulationClock::current_time_step(void) const { return clock_data.dt; }
+double SimulationClock::current_time_step() const { return clock_data.dt; }
 
 bool SerialSimulationClock::is_master() const { return true; }
 

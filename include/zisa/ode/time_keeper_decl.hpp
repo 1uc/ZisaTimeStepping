@@ -58,7 +58,7 @@ public:
    *  Calling this will activate a fix, see
    *  `enforce_initially_small_time_steps`.
    */
-  void activate_small_steps(void);
+  void activate_small_steps();
 
 protected:
   virtual double
@@ -77,7 +77,6 @@ private:
 public:
   /// Construct time-keeper that ends the simulation after `n_steps` steps.
   FixedDurationAndTimeSteps(double final_time, int_t n_steps);
-  virtual ~FixedDurationAndTimeSteps() = default;
 
   virtual bool
   is_finished(const SimulationClockData &clock_data) const override;
