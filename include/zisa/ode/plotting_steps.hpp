@@ -16,23 +16,8 @@ public:
   PlottingSteps() = default;
   virtual ~PlottingSteps() = default;
 
-  /// Is plotting required this time-step?
-  // bool is_plotting_step(double t, int k);
-
   /// Convenience interface.
   bool is_plotting_step(const SimulationClockData &clock_data);
-
-  /// Enforce constraints on the time step.
-  /** Certain plotting modes require a snapshot at exactly t = 0.932 (say).
-   *  This reduces the time-step such that the targeted time is actually
-   *  reached during the simulation.
-   *
-   *  @param t  Current simulation time.
-   *  @param dt  Proposed time step.
-   *  @return Time step smaller than `dt` that satisfies the plotting
-   *     constraints.
-   */
-  // double pick_time_step(double t, double dt);
 
   /// Convenience interface.
   double pick_time_step(const SimulationClockData &clock_data, double dt);
@@ -48,7 +33,7 @@ protected:
  */
 class PlotEveryNthStep : public PlottingSteps {
 public:
-  PlotEveryNthStep(int_t steps_per_frame);
+  PlotEveryNthStep(int_t first_frame, int_t steps_per_frame);
   virtual ~PlotEveryNthStep() = default;
 
 protected:
@@ -56,6 +41,7 @@ protected:
   is_plotting_step_impl(const SimulationClockData &clock_data) override;
 
 private:
+  int_t first_frame;
   int_t steps_per_frame;
 };
 
@@ -75,6 +61,7 @@ protected:
 
 private:
   double dt_vis;
+  double t0;
   double t_vis;
   double t_vis_last;
   double t_end;

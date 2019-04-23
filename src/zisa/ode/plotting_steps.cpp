@@ -25,24 +25,38 @@ double PlottingSteps::pick_time_step_impl(const SimulationClockData &,
 }
 
 // ---- PlotEveryNthStep -----------------------------------------------------
-PlotEveryNthStep::PlotEveryNthStep(int_t steps_per_frame)
-    : steps_per_frame(steps_per_frame) {}
+PlotEveryNthStep::PlotEveryNthStep(int_t first_frame, int_t steps_per_frame)
+    : first_frame(first_frame), steps_per_frame(steps_per_frame) {}
 
 bool PlotEveryNthStep::is_plotting_step_impl(
     const SimulationClockData &clock_data) {
+
   auto k = clock_data.k;
+
+  // don't replot the restarting frame.
+  if (first_frame != 0 && k == first_frame) {
+    return false;
+  }
+
   return k % steps_per_frame == 0;
 }
 
 // ---- PlotAtFixedInterval --------------------------------------------------
-PlotAtFixedInterval::PlotAtFixedInterval(double t_vis,
-                                         double dt_vis,
-                                         double t_end)
-    : dt_vis(dt_vis), t_vis(t_vis + dt_vis), t_vis_last(t_vis), t_end(t_end) {}
+PlotAtFixedInterval::PlotAtFixedInterval(double t0, double dt_vis, double t_end)
+    : dt_vis(dt_vis),
+      t0(t0),
+      t_vis(t0 + dt_vis),
+      t_vis_last(t0),
+      t_end(t_end) {}
 
 bool PlotAtFixedInterval::is_plotting_step_impl(
     const SimulationClockData &clock_data) {
   double t = clock_data.t;
+
+  // wlog do not plot the restarting frame.
+  if (t0 != 0.0 && t == t0) {
+    return false;
+  }
 
   bool is_first_frame = (t == 0.0);
   bool is_over_due = (t >= t_vis);
