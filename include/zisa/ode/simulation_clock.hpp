@@ -33,7 +33,7 @@ public:
   void set_time_step(double dt_cfl);
 
   /// Should the time-loop stop?
-  bool is_finished(void) const;
+  bool is_finished() const;
 
   /// Has the simulation been interrupted?
   /** The simulation `is_finished`, i.e. needs to be stopped. However, if
@@ -41,22 +41,22 @@ public:
    *
    *  @note This method assumes that the `is_finished` is true.
    */
-  bool is_interrupted(void) const;
+  bool is_interrupted() const;
 
   /// Should visualization be performed now?
-  bool is_plotting_step(void) const;
+  bool is_plotting_step() const;
 
   /// Return a compact progress string, e.g. `0011/1000`.
-  std::string compact_progess_string(void) const;
+  std::string compact_progess_string() const;
 
   /// Return the number of time steps performed.
-  int_t current_step(void) const;
+  int_t current_step() const;
 
   /// Return the current simulation time.
-  double current_time(void) const;
+  double current_time() const;
 
   /// Return the size of the current time step.
-  double current_time_step(void) const;
+  double current_time_step() const;
 
 protected:
   virtual bool is_master() const = 0;
