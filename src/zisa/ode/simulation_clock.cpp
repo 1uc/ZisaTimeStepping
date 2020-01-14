@@ -1,14 +1,15 @@
 /* Definitions of the simulation clock.
  */
 
+#include <algorithm>
 #include <zisa/ode/simulation_clock.hpp>
 
 namespace zisa {
 
 SimulationClock::SimulationClock(
-    const std::shared_ptr<TimeKeeper> &time_keeper,
-    const std::shared_ptr<PlottingSteps> &plotting_steps)
-    : time_keeper(time_keeper), plotting_steps(plotting_steps) {
+    std::shared_ptr<TimeKeeper> time_keeper,
+    std::shared_ptr<PlottingSteps> plotting_steps)
+    : time_keeper(std::move(time_keeper)), plotting_steps(std::move(plotting_steps)) {
 
   clock_data.t = 0.0;
   clock_data.k = 0;
@@ -67,24 +68,25 @@ bool SerialSimulationClock::is_master() const { return true; }
 
 double SerialSimulationClock::reduce(double dt_local) const { return dt_local; }
 
-void SerialSimulationClock::broadcast() { return; }
+void SerialSimulationClock::broadcast() { }
 
 #ifdef ZISA_HAS_MPI
 MPISimulationClock::MPISimulationClock(
-    const std::shared_ptr<TimeKeeper> &time_keeper,
-    const std::shared_ptr<PlottingSteps> &plotting_steps,
+    std::shared_ptr<TimeKeeper> time_keeper,
+    std::shared_ptr<PlottingSteps> plotting_steps,
     const MPI_Comm &mpi_comm)
-    : super(time_keeper, plotting_steps),
-      mpi_rank(mpi::comm_rank(mpi_comm)),
+    : super(std::move(time_keeper), std::move(plotting_steps)),
+      mpi_rank(zisa::mpi::rank(mpi_comm)),
       mpi_comm(mpi_comm) {}
 
 bool MPISimulationClock::is_master() const { return mpi_rank == 0; }
 
 double MPISimulationClock::reduce(double dt_local) const {
   double dt_global = -1.0;
-  MPI_Reduce(&dt_local, &dt_global, 1, MPI_DOUBLE, MPI_MIN, 0, mpi_comm);
+  MPI_Reduce(&dt_local, &dt_global, 1, MPI_DOUBLE, MPI_MIN, 0, MPI_COMM_WORLD);
   return dt_global;
 }
+
 void MPISimulationClock::broadcast() {
   void *address = (void *)(&clock_data);
   auto n_bytes = sizeof(clock_data);

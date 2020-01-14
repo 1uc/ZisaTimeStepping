@@ -11,12 +11,16 @@
 #include <zisa/ode/plotting_steps.hpp>
 #include <zisa/ode/time_keeper.hpp>
 
+#ifdef ZISA_HAS_MPI
+#include <zisa/parallelization/mpi.hpp>
+#endif
+
 namespace zisa {
 
 class SimulationClock {
 public:
-  SimulationClock(const std::shared_ptr<TimeKeeper> &time_keeper,
-                  const std::shared_ptr<PlottingSteps> &plotting_steps);
+  SimulationClock(std::shared_ptr<TimeKeeper> time_keeper,
+                  std::shared_ptr<PlottingSteps> plotting_steps);
 
   virtual ~SimulationClock() = default;
 
@@ -88,8 +92,8 @@ private:
   using super = SimulationClock;
 
 public:
-  MPISimulationClock(const std::shared_ptr<TimeKeeper> &time_keeper,
-                     const std::shared_ptr<PlottingSteps> &plotting_steps,
+  MPISimulationClock(std::shared_ptr<TimeKeeper> time_keeper,
+                     std::shared_ptr<PlottingSteps> plotting_steps,
                      const MPI_Comm &mpi_comm);
 
 protected:
