@@ -89,7 +89,7 @@ double MPISimulationClock::reduce(double dt_local) const {
 
 void MPISimulationClock::broadcast() {
   void *address = (void *)(&clock_data);
-  auto n_bytes = sizeof(clock_data);
+  auto n_bytes = integer_cast<int>(sizeof(clock_data));
   MPI_Bcast(address, n_bytes, MPI_BYTE, 0, mpi_comm);
 }
 #endif
