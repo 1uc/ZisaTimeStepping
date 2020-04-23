@@ -12,7 +12,7 @@
 #include <zisa/ode/time_keeper.hpp>
 
 #ifdef ZISA_HAS_MPI
-#include <zisa/parallelization/mpi.hpp>
+#include <zisa/mpi/mpi.hpp>
 #endif
 
 namespace zisa {
