@@ -85,5 +85,11 @@ private:
 private:
   std::vector<int_t> frames;
 };
+
+class DummyPlottingSteps : public PlottingSteps {
+protected:
+  virtual bool is_plotting_step_impl(const SimulationClockData &) override;
+};
+
 } // namespace zisa
 #endif /* end of include guard: IO_STEPS_H_SUTZCMO4 */

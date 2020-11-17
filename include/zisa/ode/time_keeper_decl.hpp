@@ -119,5 +119,13 @@ private:
   zisa::time_stamp_t simulation_start;
 };
 
+class DummyTimeKeeper : public TimeKeeper {
+public:
+  virtual bool is_finished(const SimulationClockData &) const override;
+
+  virtual std::string
+  compact_progress_string(const SimulationClockData &) const override;
+};
+
 } // namespace zisa
 #endif /* end of include guard: TIME_KEEPER_H_DY6TALRI */

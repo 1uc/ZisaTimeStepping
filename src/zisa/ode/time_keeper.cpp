@@ -78,4 +78,12 @@ FixedDurationAndTimeSteps::pick_time_step(const SimulationClockData &clock_data,
   return dt;
 }
 
+bool DummyTimeKeeper::is_finished(const SimulationClockData &) const {
+  return true;
+}
+
+std::string
+DummyTimeKeeper::compact_progress_string(const SimulationClockData &) const {
+  return "";
+}
 } // namespace zisa
