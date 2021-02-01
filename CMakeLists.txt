@@ -19,12 +19,20 @@ if(ZISA_LOG_LEVEL)
   target_compile_definitions(time_stepping_dependencies INTERFACE ZISA_LOG_LEVEL=${ZISA_LOG_LEVEL})
 endif()
 
-# -- Zisa ----------------------------------------------------------------------
-# -- core ----------------------------------------------------------------------
+# -- Internal dependencies -----------------------------------------------------
 find_package(ZisaCore REQUIRED)
+target_link_libraries(time_stepping_dependencies INTERFACE Zisa::core)
 
+if(ZISA_HAS_MPI)
+  find_package(ZisaMPI REQUIRED)
+  target_link_libraries(time_stepping_dependencies INTERFACE Zisa::mpi)
+endif()
+
+
+# -- Zisa ----------------------------------------------------------------------
 # -- time_stepping -------------------------------------------------------------
-add_library(time_stepping SHARED "")
+add_library(time_stepping STATIC "")
+set_target_properties(time_stepping PROPERTIES POSITION_INDEPENDENT_CODE ON)
 set_target_properties(time_stepping PROPERTIES OUTPUT_NAME zisa_time_stepping)
 set_target_properties(time_stepping PROPERTIES CXX_STANDARD 17)
 target_include_directories(time_stepping PUBLIC
