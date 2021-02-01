@@ -11,6 +11,13 @@ include("cmake/clang_tidy.cmake")
 # -- Dependencies --------------------------------------------------------------
 add_library(time_stepping_dependencies INTERFACE)
 
+# MPI
+if(ZISA_HAS_MPI)
+  find_package(MPI REQUIRED)
+  target_compile_definitions(time_stepping_dependencies INTERFACE ZISA_HAS_MPI=1)
+  target_link_libraries(time_stepping_dependencies INTERFACE MPI::MPI_CXX)
+endif()
+
 # experimental/filesystem
 target_link_libraries(time_stepping_dependencies INTERFACE stdc++fs)
 
