@@ -32,8 +32,7 @@ target_include_directories(time_stepping PUBLIC
   $<INSTALL_INTERFACE:include>
 )
 target_link_libraries(time_stepping PUBLIC time_stepping_dependencies)
-target_link_libraries(time_stepping PUBLIC Zisa::core)
-target_link_libraries(time_stepping PRIVATE warning_flags)
+target_link_libraries(time_stepping PRIVATE time_stepping_warning_flags)
 
 # -- clang tidy ----------------------------------------------------------------
 if(CLANG_TIDY_EXE)
@@ -57,7 +56,10 @@ install(
 
 add_library(Zisa::time_stepping ALIAS time_stepping)
 install(
-  TARGETS time_stepping time_stepping_dependencies
+  TARGETS time_stepping
+          time_stepping_dependencies
+          time_stepping_warning_flags
+
   EXPORT ZisaTimeSteppingTargets
 )
 include(GNUInstallDirs)
