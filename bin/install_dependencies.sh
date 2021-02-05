@@ -1,16 +1,41 @@
 #! /usr/bin/env bash
 
-if [[ "$#" -ne 2 ]]
+if [[ "$#" -lt 2 ]]
 then
-    echo "Usage: $0 COMPILER DESTINATION"
+    echo "Usage: $0 COMPILER DESTINATION [--zisa_has_mpi=ZISA_HAS_MPI]"
 fi
 
+for arg in "$@"
+do
+    case $arg in
+        --zisa_has_mpi=*)
+            ZISA_HAS_MPI=${arg#*=}
+            ;;
+        *)
+            ;;
+    esac
+done
+
+if [[ -z "${ZISA_HAS_MPI}" ]]
+then
+    ZISA_HAS_MPI=0
+fi
+
+echo $1
+echo $2
+echo $ZISA_HAS_MPI
+
 component_name="ZisaTimeStepping"
-zisa_dependencies=("ZisaCore" "ZisaMemory" "ZisaMPI")
+if [[ ${ZISA_HAS_MPI} -eq 0 ]]
+then
+    zisa_dependencies=("ZisaCore" "ZisaMemory")
+else
+    zisa_dependencies=("ZisaCore" "ZisaMemory" "ZisaMPI")
+fi
 
 zisa_memory_root=$(realpath $(dirname $(readlink -f $0))/..)
 
-install_dir=$(${zisa_memory_root}/bin/install_dir.sh $1 $2)
+install_dir=$(${zisa_memory_root}/bin/install_dir.sh $1 $2 --zisa_has_mpi=${ZISA_HAS_MPI})
 source_dir=${install_dir}/sources
 
 echo ${install_dir}
@@ -39,6 +64,7 @@ do
     cmake -DCMAKE_INSTALL_PREFIX=${install_dir}/zisa \
           -DCMAKE_PREFIX_PATH=${install_dir}/zisa/lib/cmake/zisa \
           -DCMAKE_PROJECT_${dep}_INCLUDE=${install_dir}/conan/conan_paths.cmake \
+          -DZISA_HAS_MPI=${ZISA_HAS_MPI} \
           -DCMAKE_BUILD_TYPE=Release \
           ..
 
