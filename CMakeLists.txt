@@ -30,6 +30,9 @@ endif()
 find_package(ZisaCore REQUIRED)
 target_link_libraries(time_stepping_dependencies INTERFACE Zisa::core)
 
+find_package(ZisaMemory REQUIRED)
+target_link_libraries(time_stepping_dependencies INTERFACE Zisa::memory)
+
 if(ZISA_HAS_MPI)
   find_package(ZisaMPI REQUIRED)
   target_link_libraries(time_stepping_dependencies INTERFACE Zisa::mpi)

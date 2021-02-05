@@ -21,7 +21,6 @@ then
     ZISA_HAS_MPI=0
 fi
 
-
 component_name="ZisaTimeStepping"
 
 compiler=$1

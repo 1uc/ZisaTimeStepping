@@ -21,10 +21,6 @@ then
     ZISA_HAS_MPI=0
 fi
 
-echo $1
-echo $2
-echo $ZISA_HAS_MPI
-
 component_name="ZisaTimeStepping"
 if [[ ${ZISA_HAS_MPI} -eq 0 ]]
 then
@@ -37,10 +33,6 @@ zisa_memory_root=$(realpath $(dirname $(readlink -f $0))/..)
 
 install_dir=$(${zisa_memory_root}/bin/install_dir.sh $1 $2 --zisa_has_mpi=${ZISA_HAS_MPI})
 source_dir=${install_dir}/sources
-
-echo ${install_dir}
-echo ${source_dir}
-
 conan_file=${zisa_memory_root}/conanfile.txt
 
 if [[ -f $conan_file ]]
@@ -52,14 +44,11 @@ fi
 mkdir -p ${source_dir}
 for dep in "${zisa_dependencies[@]}"
 do
-    echo ${src_dir}
     src_dir=${source_dir}/$dep
     git clone git@github.com:1uc/${dep}.git ${src_dir}
 
     mkdir -p ${src_dir}/build-dep
     cd ${src_dir}/build-dep
-
-    echo ${install_dir}
 
     cmake -DCMAKE_INSTALL_PREFIX=${install_dir}/zisa \
           -DCMAKE_PREFIX_PATH=${install_dir}/zisa/lib/cmake/zisa \
@@ -71,3 +60,6 @@ do
     cmake --build .
     cmake --install .
 done
+
+echo "The dependencies were installed at"
+echo "    ${install_dir}"
