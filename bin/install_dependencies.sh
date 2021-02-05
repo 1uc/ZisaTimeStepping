@@ -6,7 +6,7 @@ then
 fi
 
 component_name="ZisaTimeStepping"
-zisa_dependencies=("ZisaCore" "ZisaMPI")
+zisa_dependencies=("ZisaCore" "ZisaMemory" "ZisaMPI")
 
 zisa_memory_root=$(realpath $(dirname $(readlink -f $0))/..)
 
