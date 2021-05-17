@@ -96,8 +96,7 @@ bool PlotAtFixedTimeSteps::is_in_list(int_t k) const {
   return std::binary_search(frames.begin(), frames.end(), k);
 }
 
-bool DummyPlottingSteps::is_plotting_step_impl(
-    const SimulationClockData &clock_data) {
+bool DummyPlottingSteps::is_plotting_step_impl(const SimulationClockData &) {
   return false;
 }
 } // namespace zisa
