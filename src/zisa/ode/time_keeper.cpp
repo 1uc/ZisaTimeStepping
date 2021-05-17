@@ -1,8 +1,3 @@
-/* Keep track of how much simulation time passed.
- *
- * Authors: Luc Grosheintz <forbugrep@zoho.com>
- *    Date: 2016-03-08
- */
 #include <zisa/math/basic_functions.hpp>
 #include <zisa/math/comparison.hpp>
 #include <zisa/ode/time_keeper.hpp>

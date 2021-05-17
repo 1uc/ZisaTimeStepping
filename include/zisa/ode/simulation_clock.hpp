@@ -1,9 +1,3 @@
-/* Combines two `TimeKeeper` and `PlottingSteps` objects.
- *
- * Authors: Luc Grosheintz <forbugrep@zoho.com>
- *    Date: 2017-11-28
- */
-
 #ifndef SIMULATION_CLOCK_H_70YQ2
 #define SIMULATION_CLOCK_H_70YQ2
 

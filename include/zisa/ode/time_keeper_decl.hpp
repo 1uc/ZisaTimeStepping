@@ -1,8 +1,3 @@
-/* Keep track of how much simulation time passed.
- *
- * Authors: Luc Grosheintz <forbugrep@zoho.com>
- *    Date: 2016-03-07
- */
 #ifndef TIME_KEEPER_DECL_H_DY6TALRI
 #define TIME_KEEPER_DECL_H_DY6TALRI
 

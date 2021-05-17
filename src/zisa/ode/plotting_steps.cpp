@@ -1,8 +1,3 @@
-/* When to save the state to disk? The logic is here.
- *
- * Authors: Luc Grosheintz <forbugrep@zoho.com>
- *    Date: 2016-03-29
- */
 #include <algorithm>
 
 #include <zisa/math/comparison.hpp>
