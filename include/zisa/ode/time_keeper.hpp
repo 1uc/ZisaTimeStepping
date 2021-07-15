@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2021 ETH Zurich, Luc Grosheintz-Laval
+
 #ifndef TIME_KEEPER_H_ZV0YY
 #define TIME_KEEPER_H_ZV0YY
 

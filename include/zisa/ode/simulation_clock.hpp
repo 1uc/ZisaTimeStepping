@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2021 ETH Zurich, Luc Grosheintz-Laval
+
 #ifndef SIMULATION_CLOCK_H_70YQ2
 #define SIMULATION_CLOCK_H_70YQ2
 

@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2021 ETH Zurich, Luc Grosheintz-Laval
+
 /* Template and inline definitions for time_keeper.h.
  */
 #ifndef TIME_KEEPER_INC_CAI3J4N5

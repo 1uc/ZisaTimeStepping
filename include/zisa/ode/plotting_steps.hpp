@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2021 ETH Zurich, Luc Grosheintz-Laval
+
 /* When to save the state to disk? The logic is here.
  */
 #ifndef IO_STEPS_H_SUTZCMO4
