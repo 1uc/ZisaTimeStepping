@@ -1,6 +1,6 @@
 # ZisaTimeStepping
-[![Build Status](https://github.com/1uc/ZisaTimeStepping/actions/workflows/basic_integrity_checks.yml/badge.svg)](https://github.com/1uc/ZisaTimeStepping/actions)
-[![Docs Status](https://github.com/1uc/ZisaTimeStepping/actions/workflows/publish_docs.yml/badge.svg)](https://1uc.github.io/ZisaTimeStepping)
+[![Build Status](https://github.com/1uc/ZisaTimeStepping/actions/workflows/basic_integrity_checks.yml/badge.svg?branch=main)](https://github.com/1uc/ZisaTimeStepping/actions)
+[![Docs Status](https://github.com/1uc/ZisaTimeStepping/actions/workflows/publish_docs.yml/badge.svg?branch=main)](https://1uc.github.io/ZisaTimeStepping)
 
 ZisaTimeStepping is provides funcionality related to time stepping. In HPC
 applications often the problem is solved by taking small steps forward in time.
