@@ -96,7 +96,6 @@ do
 
     ${CMAKE} -DCMAKE_INSTALL_PREFIX="${install_dir}/zisa" \
           -DCMAKE_PREFIX_PATH="${install_dir}/zisa/lib/cmake/zisa" \
-          -DCMAKE_MODULE_PATH="${install_dir}/conan" \
           -DCMAKE_PROJECT_${dep}_INCLUDE="${install_dir}/conan/conan_paths.cmake" \
           -DCMAKE_C_COMPILER="${CC}" \
           -DCMAKE_CXX_COMPILER="${CXX}" \
@@ -112,10 +111,11 @@ echo "The dependencies were installed at"
 echo "    export DEP_DIR=${install_dir}"
 echo ""
 echo "Use"
-echo "    ${CMAKE} -DCMAKE_PROJECT_${component_name}_INCLUDE=${install_dir}/conan/conan_paths.cmake \\ "
-echo "          -DCMAKE_MODULE_PATH=${install_dir}/conan \\ "
-echo "          -DCMAKE_PREFIX_PATH=${install_dir}/zisa/lib/cmake/zisa \\ "
-echo "          -DCMAKE_C_COMPILER=${CC} \\ "
-echo "          -DCMAKE_CXX_COMPILER=${CXX} \\ "
-echo "          -DZISA_HAS_MPI=${ZISA_HAS_MPI} \\ "
-echo "          REMAINING_ARGS "
+echo "    ${CMAKE} \ "
+echo "        -DCMAKE_PROJECT_${component_name}_INCLUDE=${install_dir}/conan/conan_paths.cmake \ "
+echo "        -DCMAKE_PREFIX_PATH=${install_dir}/zisa/lib/cmake/zisa \ "
+echo "        -DCMAKE_C_COMPILER=${CC} \ "
+echo "        -DCMAKE_CXX_COMPILER=${CXX} \ "
+echo "        -DZISA_HAS_CUDA=${ZISA_HAS_CUDA} \ "
+echo "        -DCMAKE_INSTALL_PREFIX=FastDebug \ "
+echo "        -B build"
