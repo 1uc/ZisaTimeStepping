@@ -9,8 +9,11 @@ component_name="ZisaTimeStepping"
 if [[ "$#" -lt 2 ]]
 then
     echo "Usage: $0 COMPILER DESTINATION [--zisa_has_mpi=ZISA_HAS_MPI]"
+    echo "                               [--zisa_has_hdf5=ZISA_HAS_HDF5]"
+    echo "                               [--zisa_has_netcdf=ZISA_HAS_NETCDF]"
     echo "                               [--zisa_has_cuda=ZISA_HAS_CUDA]"
     echo "                               [--cmake=CUSTOM_CMAKE_BINARY]"
+    echo "                               [--print_install_dir]"
     exit -1
 fi
 
@@ -20,11 +23,20 @@ do
         --zisa_has_mpi=*)
             ZISA_HAS_MPI=${arg#*=}
             ;;
+        --zisa_has_hdf5=*)
+            ZISA_HAS_HDF5=${arg#*=}
+            ;;
+        --zisa_has_netcdf=*)
+            ZISA_HAS_NETCDF=${arg#*=}
+            ;;
         --zisa_has_cuda=*)
             ZISA_HAS_CUDA=${arg#*=}
             ;;
         --cmake=*)
             CMAKE="$(realpath "${arg#*=}")"
+            ;;
+        --print_install_dir)
+            PRINT_INSTALL_PATH=1
             ;;
         *)
             ;;
@@ -41,9 +53,19 @@ then
     ZISA_HAS_MPI=0
 fi
 
+if [[ -z "${ZISA_HAS_HDF5}" ]]
+then
+    ZISA_HAS_HDF5=0
+fi
+
+if [[ -z "${ZISA_HAS_NETCDF}" ]]
+then
+    ZISA_HAS_NETCDF=0
+fi
+
 if [[ -z "${ZISA_HAS_CUDA}" ]]
 then
-    ZISA_HAS_CUDA=1
+    ZISA_HAS_CUDA=0
 fi
 
 if [[ ${ZISA_HAS_MPI} -eq 0 ]]
@@ -58,9 +80,22 @@ zisa_root="$(realpath "$(dirname "$(readlink -f "$0")")"/..)"
 CC="$1"
 CXX="$(${zisa_root}/bin/cc2cxx.sh $CC)"
 
-install_dir="$("${zisa_root}/bin/install_dir.sh" "$1" "$2" --zisa_has_mpi=${ZISA_HAS_MPI})"
+install_dir="$(
+    "${zisa_root}/bin/install_dir.sh" "$1" "$2" \
+        --zisa_has_mpi=${ZISA_HAS_MPI} \
+        --zisa_has_cuda=${ZISA_HAS_CUDA} \
+        --zisa_has_hdf5=${ZISA_HAS_HDF5} \
+        --zisa_has_netcdf=${ZISA_HAS_NETCDF} \
+)"
 source_dir="${install_dir}/sources"
 conan_file="${zisa_root}/conanfile.txt"
+
+if [[ ${PRINT_INSTALL_PATH} -eq 1 ]]
+then
+  echo $install_dir
+  exit 0
+fi
+
 
 mkdir -p "${install_dir}/conan" && cd "${install_dir}/conan"
 conan install "$conan_file" \
