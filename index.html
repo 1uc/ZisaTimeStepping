@@ -87,15 +87,19 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="mainpage"></a>ZisaTimeStepping is provides funcionality related to time stepping. In HPC applications often the problem is solved by taking small steps forward in time. This library provides a progress bar and a <code>TimeKeeper</code> which keeps track of the current simulation time, as well as classes to decide when the simulation should be written to file or (eventually) stopped.</p>
-<p>Note: This library does implement any ODE solvers.</p>
+<p>Note: This library does not implement any ODE solvers.</p>
 <h1><a class="anchor" id="autotoc_md0"></a>
 Quickstart</h1>
 <p>Start by cloning the repository </p><pre class="fragment">$ git clone https://github.com/1uc/ZisaTimeStepping.git
-</pre><p> and change into the newly created directory. Then proceed to install the dependencies: </p><pre class="fragment">$ bin/install_dir.sh COMPILER DIRECTORY       \
-                     [--zisa_has_mpi={0,1}]   \
-                     [--zisa_has_cuda={0,1}]
-</pre><p> they will be placed into a subdirectory of <code>DIRECTORY</code> and print part of the CMake command needed to include the dependencies. <code>COMPILER</code> must be replaced with the compiler you want to use.</p>
-<p>If this worked continue by adding <a class="el" href="md_cmake.html#cmake_flags">project specific flags</a> to the CMake command. If not it's not going to be a quick start. Please read <a class="el" href="md_dependencies.html">Dependencies</a> and then <a class="el" href="md_cmake.html">Building</a>. </p>
+</pre><p> and change into the newly created directory. Then proceed to install the dependencies: </p><pre class="fragment">$ bin/install_dir.sh COMPILER DIRECTORY DEPENDENCY_FLAGS
+</pre><p> they will be placed into a subdirectory of <code>DIRECTORY</code> and print part of the CMake command needed to include the dependencies. <code>COMPILER</code> must be replaced with the compiler you want to use. The available <code>DEPENDENCY_FLAGS</code> are</p>
+<ul>
+<li><code>--zisa_has_mpi={0,1}</code> to request MPI.</li>
+<li><code>--zisa_has_hdf5={0,1}</code> to request HDF5 for writing arrays.</li>
+<li><code>--zisa_has_netcdf={0,1}</code> to request NetCDF for writing arrays.</li>
+<li><code>--zisa_has_cuda={0,1}</code> to request CUDA (experimental).</li>
+</ul>
+<p>If this worked continue by running the <code>cmake</code> command and compiling the library. Take a look at the <a class="el" href="md_cmake.html#cmake_flags">project specific flags</a> for CMake if you want to modify something. If this didn't work, it's not going to be a quick start. Please read <a class="el" href="md_dependencies.html">Dependencies</a> and then <a class="el" href="md_cmake.html">Building</a>. </p>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
 </div><!-- doc-content -->
