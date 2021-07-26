@@ -106,7 +106,7 @@ mkdir -p "${source_dir}"
 for dep in "${zisa_dependencies[@]}"
 do
     src_dir="${source_dir}/$dep"
-    repo_url=git@github.com:1uc/${dep}.git
+    repo_url=https://github.com/1uc/${dep}.git
 
     # If necessary and reasonable remove ${src_dir}.
     if [[ -d "${src_dir}" ]]
